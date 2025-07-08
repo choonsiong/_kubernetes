@@ -1,6 +1,6 @@
 # `kubectl`
 
-### To find number of pods available in `default` namespace
+### To find number of pods available in `default` namespace using `kubectl get pods`
 
 ```
 tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
@@ -114,6 +114,65 @@ tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
 No resources found in default namespace.
 tecnomen@debian12:~/k8s/pod-demo-1$ 
 tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
+
+### To find details of a pod using `kubectl describe pod`
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl describe pod nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 09 Jul 2025 04:48:52 +0800
+Labels:           run=nginx
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.6
+IPs:
+  IP:  10.244.0.6
+Containers:
+  nginx:
+    Container ID:   docker://d44a5124481c9bec287a2c447b94ba0303db7fbb2070b9172e400d75685133d3
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:93230cd54060f497430c7a120e2347894846a81b6a5dd2110f7362c5423b4abc
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 09 Jul 2025 04:48:56 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jbltk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-jbltk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  9s    default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    8s    kubelet            Pulling image "nginx"
+  Normal  Pulled     6s    kubelet            Successfully pulled image "nginx" in 2.751s (2.751s including waiting). Image size: 197642500 bytes.
+  Normal  Created    5s    kubelet            Created container: nginx
+  Normal  Started    5s    kubelet            Started container nginx
 tecnomen@debian12:~/k8s/pod-demo-1$ 
 ```
 
