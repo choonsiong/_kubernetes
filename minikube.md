@@ -6,7 +6,9 @@
     - Install minikube
         - [minikube start](https://minikube.sigs.k8s.io/docs/start/?arch=%2Fmacos%2Fx86-64%2Fstable%2Fbinary+download)
 
-### Install docker
+### Install Docker
+
+Refer [this guide](https://docs.docker.com/engine/install/debian/) for installing Docker on Debian.
 
 First, uninstall all conflicting packages
 
@@ -66,7 +68,7 @@ tecnomen@debian12:~$
 tecnomen@debian12:~$ 
 ```
 
-Then install docker
+Then install Docker
 
 ```
 tecnomen@debian12:~$ 
@@ -335,3 +337,5 @@ tecnomen@debian12:~$
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
 ```
+
+### Install minikube
