@@ -1,5 +1,13 @@
 # `kubectl`
 
+### To find number of pods available in `default` namespace
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
+
 ### To create a pod using `kubectl run`
 
 ```
