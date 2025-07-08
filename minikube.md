@@ -285,6 +285,11 @@ CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                 
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
+
+tecnomen@debian12:~$ sudo usermod -aG docker $USER && newgrp docker
+... loading /etc/bash.bashrc
+... loading .bashrc
+tecnomen@debian12:~$ 
 ```
 
 ### Install `kubectl`
@@ -339,3 +344,68 @@ tecnomen@debian12:~$
 ```
 
 ### Install minikube
+
+```
+tecnomen@debian12:~$ curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-arm64
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  122M  100  122M    0     0   225k      0  0:09:16  0:09:16 --:--:--  185k
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ sudo install minikube-linux-arm64 /usr/local/bin/minikube && rm minikube-linux-arm64
+[sudo] password for tecnomen: 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ minikube start
+😄  minikube v1.36.0 on Debian 12.10 (arm64)
+👎  Unable to pick a default driver. Here is what was considered, in preference order:
+    ▪ docker: Not healthy: "docker version --format {{.Server.Os}}-{{.Server.Version}}:{{.Server.Platform.Name}}" exit status 1: permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.51/version": dial unix /var/run/docker.sock: connect: permission denied
+    ▪ docker: Suggestion: Add your user to the 'docker' group: 'sudo usermod -aG docker $USER && newgrp docker' <https://docs.docker.com/engine/install/linux-postinstall/>
+💡  Alternatively you could install one of these drivers:
+    ▪ kvm2: Not installed: exec: "virsh": executable file not found in $PATH
+    ▪ podman: Not installed: exec: "podman": executable file not found in $PATH
+    ▪ qemu2: Not installed: exec: "qemu-system-aarch64": executable file not found in $PATH
+    ▪ virtualbox: Not installed: unable to find VBoxManage in $PATH
+
+❌  Exiting due to DRV_NOT_HEALTHY: Found driver(s) but none were healthy. See above for suggestions how to fix installed drivers.
+
+tecnomen@debian12:~$ sudo usermod -aG docker $USER && newgrp docker
+... loading /etc/bash.bashrc
+... loading .bashrc
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ minikube start
+😄  minikube v1.36.0 on Debian 12.10 (arm64)
+✨  Automatically selected the docker driver
+📌  Using Docker driver with root privileges
+👍  Starting "minikube" primary control-plane node in "minikube" cluster
+🚜  Pulling base image v0.0.47 ...
+💾  Downloading Kubernetes v1.33.1 preload ...
+    > preloaded-images-k8s-v18-v1...:  327.15 MiB / 327.15 MiB  100.00% 18.27 M
+    > gcr.io/k8s-minikube/kicbase...:  463.69 MiB / 463.69 MiB  100.00% 25.35 M
+🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+🐳  Preparing Kubernetes v1.33.1 on Docker 28.1.1 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+🔎  Verifying Kubernetes components...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🌟  Enabled addons: storage-provisioner, default-storageclass
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ kubectl get po -A
+NAMESPACE     NAME                               READY   STATUS    RESTARTS   AGE
+kube-system   coredns-674b8bbfcf-vf9k5           1/1     Running   0          58s
+kube-system   etcd-minikube                      1/1     Running   0          64s
+kube-system   kube-apiserver-minikube            1/1     Running   0          64s
+kube-system   kube-controller-manager-minikube   1/1     Running   0          64s
+kube-system   kube-proxy-l2dp6                   1/1     Running   0          59s
+kube-system   kube-scheduler-minikube            1/1     Running   0          64s
+kube-system   storage-provisioner                1/1     Running   0          63s
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+
+```
