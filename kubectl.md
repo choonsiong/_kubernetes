@@ -87,3 +87,118 @@ tecnomen@debian12:~$
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
 ```
+
+### To delete a pod using `kubectl delete pod`
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          7s
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl delete pod nginx
+pod "nginx" deleted
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
+
+### To create a pod using `kubectl apply`
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ cat pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl apply -f pod.yaml 
+pod/nginx created
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+NAME    READY   STATUS              RESTARTS   AGE
+nginx   0/1     ContainerCreating   0          3s
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+NAME    READY   STATUS    RESTARTS   AGE
+nginx   1/1     Running   0          4s
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl describe pod nginx
+Name:             nginx
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             minikube/192.168.49.2
+Start Time:       Wed, 09 Jul 2025 04:22:14 +0800
+Labels:           app=nginx
+                  tier=frontend
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.4
+IPs:
+  IP:  10.244.0.4
+Containers:
+  nginx:
+    Container ID:   docker://fa3a1bac60d4504c13431eac61e969f698b6445b3cbb17e670a5c52e55e8089e
+    Image:          nginx
+    Image ID:       docker-pullable://nginx@sha256:93230cd54060f497430c7a120e2347894846a81b6a5dd2110f7362c5423b4abc
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 09 Jul 2025 04:22:17 +0800
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-2864v (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-2864v:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  16s   default-scheduler  Successfully assigned default/nginx to minikube
+  Normal  Pulling    15s   kubelet            Pulling image "nginx"
+  Normal  Pulled     13s   kubelet            Successfully pulled image "nginx" in 2.705s (2.705s including waiting). Image size: 197642500 bytes.
+  Normal  Created    13s   kubelet            Created container: nginx
+  Normal  Started    13s   kubelet            Started container nginx
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl delete pod nginx
+pod "nginx" deleted
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
