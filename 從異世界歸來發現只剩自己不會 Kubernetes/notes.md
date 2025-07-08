@@ -5,4 +5,4 @@
 
 ### 傳統，虛擬化和容器化部署環境
 
-![img](tmp/different-way-of-deployment.svg)
+![img](img/different-way-of-deployments.svg)
