@@ -285,7 +285,11 @@ CONTAINER ID   IMAGE         COMMAND    CREATED          STATUS                 
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
+```
 
+Give root privilege to `tecnomen` user
+
+```
 tecnomen@debian12:~$ sudo usermod -aG docker $USER && newgrp docker
 ... loading /etc/bash.bashrc
 ... loading .bashrc
@@ -406,6 +410,11 @@ kube-system   kube-scheduler-minikube            1/1     Running   0          64
 kube-system   storage-provisioner                1/1     Running   0          63s
 tecnomen@debian12:~$ 
 tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ 
+tecnomen@debian12:~$ minikube version
+minikube version: v1.36.0
+commit: f8f52f5de11fc6ad8244afac475e1d0f96841df1-dirty
 tecnomen@debian12:~$ 
 
 ```
