@@ -12,6 +12,9 @@
 
 ## K8S Documentation
 
+- [Kubernetes 文檔/概述](https://kubernetes.io/zh-cn/docs/concepts/overview/)
+- [Kubernetes Documentation/Concepts](
+    - [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
 - [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
 ## Tools
