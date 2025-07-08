@@ -417,4 +417,13 @@ minikube version: v1.36.0
 commit: f8f52f5de11fc6ad8244afac475e1d0f96841df1-dirty
 tecnomen@debian12:~$ 
 
+tecnomen@debian12:~$ minikube status
+minikube
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+tecnomen@debian12:~$ 
 ```
