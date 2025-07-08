@@ -14,3 +14,4 @@
         - Scheduler
     - Worker node
         - Kubelet (interact with Master node)
+    - Command line util `kubectl`
