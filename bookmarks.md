@@ -20,7 +20,7 @@
 ## Tools
 
 - [KodeKloud/public-playgrounds](https://kodekloud.com/public-playgrounds)
-    - [Kubernetes Lab]https://learn.kodekloud.com/user/courses/udemy-labs-online-kubernetes-lab-for-beginners-hands-on
+    - [Kubernetes Lab](https://learn.kodekloud.com/user/courses/udemy-labs-online-kubernetes-lab-for-beginners-hands-on)
 - Container orchestration
     - [Apache Mesos](https://mesos.apache.org/)
     - [Docker Swarm](https://docs.docker.com/engine/swarm/)
