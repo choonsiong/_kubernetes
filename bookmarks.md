@@ -2,7 +2,7 @@
 
 - [Kubernetes](https://kubernetes.io)
     - [documentation](https://kubernetes.io/docs/home/)
-- [Minikube](https://minikube.sigs.k8s.io/docs/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/) - Single node k8s with everything inside
     - [documentation](https://minikube.sigs.k8s.io/docs/)
     - Setup minikube
         - [Install `kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
