@@ -8,6 +8,17 @@ No resources found in default namespace.
 tecnomen@debian12:~/k8s/pod-demo-1$ 
 ```
 
+### To find which node a pod is running using `kubectl get pods -o wide`
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods -o wide
+NAME    READY   STATUS    RESTARTS   AGE    IP           NODE       NOMINATED NODE   READINESS GATES
+nginx   1/1     Running   0          106s   10.244.0.6   minikube   <none>           <none>
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
+
 ### To create a pod using `kubectl run`
 
 ```
