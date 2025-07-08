@@ -22,4 +22,3 @@
     - CRI is required for k8s to support other container runtime, but docker itself is not CRI compatible
 - `containerd` (the daemon manage `runc` part of docker) is CRI compatible
     - k8s (v1.24) removes `dockershim` eventually and supports only `containerd`
-- 
