@@ -15,3 +15,6 @@
     - Worker node
         - Kubelet (interact with Master node)
     - Command line util `kubectl`
+- OCI includes
+    - imagespec - container image spec
+    - runtimespec - container runtime spec

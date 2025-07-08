@@ -1,3 +1,4 @@
 # Terminology
 
-- Container Orchestration
+- CRI (Container Runtime Interface)
+- OCI (Open Container Initiative)

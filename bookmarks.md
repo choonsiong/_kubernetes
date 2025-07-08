@@ -7,6 +7,11 @@
     - Setup minikube
         - [Install `kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
         - [Install `minikube`](https://minikube.sigs.k8s.io/docs/start/?arch=%2Flinux%2Farm64%2Fstable%2Fbinary+download)
+- [Open Container Initiative (OCI)](https://opencontainers.org/)
+
+## K8S Documentation
+
+- [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
 ## Tools
 
