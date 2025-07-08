@@ -9,9 +9,8 @@
     - Master node
         - API server (frontend for k8s)
         - etcd (key-value store)
-        - Kubelet
-        - Container runtime
+        - Container runtime (to run container, e.g. docker, rkt, CRI-O)
         - Controller
         - Scheduler
     - Worker node
-        - Kubelet
+        - Kubelet (interact with Master node)
