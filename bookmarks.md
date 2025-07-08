@@ -2,7 +2,8 @@
 
 - [Kubernetes](https://kubernetes.io)
     - [documentation](https://kubernetes.io/docs/home/)
-- [Minikube](https://minikube.sigs.k8s.io/docs/) - Single node k8s with everything inside
+    - [crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
+- [Minikube](https://minikube.sigs.k8s.io/docs/) - Single node k8s cluster (with all components inside)
     - [documentation](https://minikube.sigs.k8s.io/docs/)
     - Setup minikube
         - [Install `kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
@@ -21,3 +22,5 @@
     - [Apache Mesos](https://mesos.apache.org/)
     - [Docker Swarm](https://docs.docker.com/engine/swarm/)
     - [Kubernetes](https://kubernetes.io/)
+- [containerd](https://containerd.io/)
+    - [nerdctl](https://github.com/containerd/nerdctl)
