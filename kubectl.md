@@ -280,3 +280,25 @@ tecnomen@debian12:~/k8s/pod-demo-1$ kubectl get pods
 No resources found in default namespace.
 tecnomen@debian12:~/k8s/pod-demo-1$ 
 ```
+
+### To generata pod definition yaml file using `kubectl run` with `--dry-run=client -o yaml`
+
+```
+tecnomen@debian12:~/k8s/pod-demo-1$ kubectl run redis --image=redis-fake --dry-run=client -o yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis
+  name: redis
+spec:
+  containers:
+  - image: redis-fake
+    name: redis
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
+tecnomen@debian12:~/k8s/pod-demo-1$ 
+```
