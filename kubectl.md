@@ -988,3 +988,264 @@ No resources found in default namespace.
 tecnomen@debian12:~/k8s/deployment-demo$ 
 tecnomen@debian12:~/k8s/deployment-demo$ 
 ```
+
+### Check rollout status with `kubectl rollout status`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+myapp-deployment   1/3     3            1           6s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout status deployment/myapp-deployment
+deployment "myapp-deployment" successfully rolled out
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         <none>
+
+tecnomen@debian12:~/k8s/deployment-demo$ 
+
+
+```
+
+### Undo rollout with `kubectl rollout undo`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ vi deployment-definition.yml 
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx: 1.7.1
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ vi deployment-definition.yml 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl apply -f deployment-definition.yml 
+Warning: resource deployments/myapp-deployment is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+deployment.apps/myapp-deployment configured
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         <none>
+2         <none>
+
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout undo deployment/myapp-deployment
+deployment.apps/myapp-deployment rolled back
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+myapp-deployment-56db76d944   3         3         3       7m55s
+myapp-deployment-759ddb7df7   0         0         0       4m7s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+```
+
+### Rollout history with `kubectl rollout history`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployment
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl create -f deployment-definition.yml --record
+Flag --record has been deprecated, --record will be removed in the future
+deployment.apps/myapp-deployment created
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout status deployment/myapp-deployment
+Waiting for deployment "myapp-deployment" rollout to finish: 0 of 3 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 1 of 3 updated replicas are available...
+Waiting for deployment "myapp-deployment" rollout to finish: 2 of 3 updated replicas are available...
+deployment "myapp-deployment" successfully rolled out
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment-definition.yml --record=true
+
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+myapp-deployment-5cbcd58577   3         3         3       71s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.28
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ vi deployment-definition.yml 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.29
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl apply -f deployment-definition.yml 
+Warning: resource deployments/myapp-deployment is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+deployment.apps/myapp-deployment configured
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+myapp-deployment-5cbcd58577   2         2         2       114s
+myapp-deployment-6b98d674f6   2         2         1       4s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout status deployment/myapp-deployment
+deployment "myapp-deployment" successfully rolled out
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment-definition.yml --record=true
+2         kubectl create --filename=deployment-definition.yml --record=true
+
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl set image deployment/my-deployment nginx-container=nginx:1.29-bookworm
+Error from server (NotFound): deployments.apps "my-deployment" not found
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl set image deployment/myapp-deployment nginx-container=nginx:1.29-bookworm
+deployment.apps/myapp-deployment image updated
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment-definition.yml --record=true
+2         kubectl create --filename=deployment-definition.yml --record=true
+3         kubectl create --filename=deployment-definition.yml --record=true
+
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout undo deployment/myapp-deployment
+deployment.apps/myapp-deployment rolled back
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl rollout history deployment/myapp-deployment
+deployment.apps/myapp-deployment 
+REVISION  CHANGE-CAUSE
+1         kubectl create --filename=deployment-definition.yml --record=true
+3         kubectl create --filename=deployment-definition.yml --record=true
+4         kubectl create --filename=deployment-definition.yml --record=true
+
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl describe deployment/myapp-deployment
+Name:                   myapp-deployment
+Namespace:              default
+CreationTimestamp:      Wed, 09 Jul 2025 17:36:21 +0800
+Labels:                 app=myapp
+                        type=front-end
+Annotations:            deployment.kubernetes.io/revision: 4
+                        kubernetes.io/change-cause: kubectl create --filename=deployment-definition.yml --record=true
+Selector:               type=front-end
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=myapp
+           type=front-end
+  Containers:
+   nginx-container:
+    Image:         nginx:1.29
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  myapp-deployment-5cbcd58577 (0/0 replicas created), myapp-deployment-5cbb54979c (0/0 replicas created)
+NewReplicaSet:   myapp-deployment-6b98d674f6 (3/3 replicas created)
+Events:
+  Type    Reason             Age                  From                   Message
+  ----    ------             ----                 ----                   -------
+  Normal  ScalingReplicaSet  6m10s                deployment-controller  Scaled up replica set myapp-deployment-5cbcd58577 from 0 to 3
+  Normal  ScalingReplicaSet  4m20s                deployment-controller  Scaled up replica set myapp-deployment-6b98d674f6 from 0 to 1
+  Normal  ScalingReplicaSet  4m16s                deployment-controller  Scaled down replica set myapp-deployment-5cbcd58577 from 3 to 2
+  Normal  ScalingReplicaSet  4m15s                deployment-controller  Scaled down replica set myapp-deployment-5cbcd58577 from 2 to 1
+  Normal  ScalingReplicaSet  4m15s                deployment-controller  Scaled up replica set myapp-deployment-6b98d674f6 from 2 to 3
+  Normal  ScalingReplicaSet  4m14s                deployment-controller  Scaled down replica set myapp-deployment-5cbcd58577 from 1 to 0
+  Normal  ScalingReplicaSet  2m38s                deployment-controller  Scaled up replica set myapp-deployment-5cbb54979c from 0 to 1
+  Normal  ScalingReplicaSet  2m33s                deployment-controller  Scaled down replica set myapp-deployment-6b98d674f6 from 3 to 2
+  Normal  ScalingReplicaSet  68s (x2 over 4m16s)  deployment-controller  Scaled up replica set myapp-deployment-6b98d674f6 from 1 to 2
+  Normal  ScalingReplicaSet  66s (x9 over 2m33s)  deployment-controller  (combined from similar events): Scaled down replica set myapp-deployment-5cbb54979c from 1 to 0
+tecnomen@debian12:~/k8s/deployment-demo$
+```
