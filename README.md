@@ -46,3 +46,6 @@
 - Replication controller (old technology to setup replication) is running even if there's only one pod running.
     - Load balancing and scaling
     - Replaced by ReplicaSet
+- Networking
+    - Each pod gets its own IP (whereas in Docker, each container has its own IP)
+        - Note that a pod can hosts multiple containers0
