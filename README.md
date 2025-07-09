@@ -43,3 +43,6 @@
             - name: nginx-container
               image: nginx    
     ```          
+- Replication controller (old technology to setup replication) is running even if there's only one pod running.
+    - Load balancing and scaling
+    - Replaced by ReplicaSet
