@@ -302,3 +302,105 @@ spec:
 status: {}
 tecnomen@debian12:~/k8s/pod-demo-1$ 
 ```
+
+### To create replication controller using `kubectl create` with the replication controller definition file
+
+```
+tecnomen@debian12:~/k8s/replicasets-demo-1$ cat rc-definition.yaml 
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: myapp-rc
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ kubectl create -f rc-definition.yaml 
+replicationcontroller/myapp-rc created
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ kubectl get pods
+NAME             READY   STATUS              RESTARTS   AGE
+myapp-rc-k2l77   1/1     Running             0          5s
+myapp-rc-v9k2m   0/1     ContainerCreating   0          5s
+myapp-rc-xljq8   0/1     ContainerCreating   0          5s
+nginx            1/1     Running             0          4h42m
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ kubectl delete pod nginx
+pod "nginx" deleted
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+myapp-rc-k2l77   1/1     Running   0          16s
+myapp-rc-v9k2m   1/1     Running   0          16s
+myapp-rc-xljq8   1/1     Running   0          16s
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ kubectl get replicationcontroller
+NAME       DESIRED   CURRENT   READY   AGE
+myapp-rc   3         3         3       56s
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+tecnomen@debian12:~/k8s/replicasets-demo-1$ 
+```
+
+### To create replicaset using `kubectl create` with the replicaset definition file
+
+```
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ cat replicaset-definition.yml 
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ kubectl create -f replicaset-definition.yml 
+replicaset.apps/myapp-replicaset created
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   3         3         2       7s
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-rc-k2l77           1/1     Running   0          9m27s
+myapp-rc-v9k2m           1/1     Running   0          9m27s
+myapp-rc-xljq8           1/1     Running   0          9m27s
+myapp-replicaset-2l88v   1/1     Running   0          12s
+myapp-replicaset-bbvhz   1/1     Running   0          12s
+myapp-replicaset-zn6hd   1/1     Running   0          12s
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
+```
