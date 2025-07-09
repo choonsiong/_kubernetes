@@ -1249,3 +1249,117 @@ Events:
   Normal  ScalingReplicaSet  66s (x9 over 2m33s)  deployment-controller  (combined from similar events): Scaled down replica set myapp-deployment-5cbb54979c from 1 to 0
 tecnomen@debian12:~/k8s/deployment-demo$
 ```
+
+### To deploy service using `kubectl create`
+
+> Note that in below, the pod are running and with the matching labels in the selector field.
+
+```
+tecnomen@debian12:~/k8s/service-demo-1$ cat service-definition.yml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service
+
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30008
+  selector:
+    app: myapp
+    type: front-end
+tecnomen@debian12:~/k8s/service-demo-1$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+myapp-deployment-6b98d674f6-8ntfh   1/1     Running   0          165m
+myapp-deployment-6b98d674f6-b2dlf   1/1     Running   0          165m
+myapp-deployment-6b98d674f6-tzqh9   1/1     Running   0          165m
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ kubectl create -f service-definition.yml --record=true
+Flag --record has been deprecated, --record will be removed in the future
+service/myapp-service created
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ kubectl get service
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        23h
+myapp-service   NodePort    10.98.55.253   <none>        80:30008/TCP   6s
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/myapp-deployment-6b98d674f6-8ntfh   1/1     Running   0          165m
+pod/myapp-deployment-6b98d674f6-b2dlf   1/1     Running   0          165m
+pod/myapp-deployment-6b98d674f6-tzqh9   1/1     Running   0          165m
+
+NAME                    TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        23h
+service/myapp-service   NodePort    10.98.55.253   <none>        80:30008/TCP   17s
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/myapp-deployment   3/3     3            3           170m
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/myapp-deployment-5cbb54979c   0         0         0       167m
+replicaset.apps/myapp-deployment-5cbcd58577   0         0         0       170m
+replicaset.apps/myapp-deployment-6b98d674f6   3         3         3       168m
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ minikube service myapp-service
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | myapp-service |          80 | http://192.168.49.2:30008 |
+|-----------|---------------|-------------|---------------------------|
+🎉  Opening service default/myapp-service in default browser...
+tecnomen@debian12:~/k8s/service-demo-1$ [541029, Main Thread] WARNING: Locale not supported by C library.
+  Using the fallback 'C' locale.: 'glib warning', file ./toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox-esr:541029): Gtk-WARNING **: 20:27:42.747: Locale not supported by C library.
+  Using the fallback 'C' locale.
+Error: no DISPLAY environment variable specified
+^C
+tecnomen@debian12:~/k8s/service-demo-1$ minikube service myapp-service
+|-----------|---------------|-------------|---------------------------|
+| NAMESPACE |     NAME      | TARGET PORT |            URL            |
+|-----------|---------------|-------------|---------------------------|
+| default   | myapp-service |          80 | http://192.168.49.2:30008 |
+|-----------|---------------|-------------|---------------------------|
+🎉  Opening service default/myapp-service in default browser...
+tecnomen@debian12:~/k8s/service-demo-1$ [541350, Main Thread] WARNING: Locale not supported by C library.
+  Using the fallback 'C' locale.: 'glib warning', file ./toolkit/xre/nsSigHandlers.cpp:187
+
+(firefox-esr:541350): Gtk-WARNING **: 20:28:19.249: Locale not supported by C library.
+  Using the fallback 'C' locale.
+Error: no DISPLAY environment variable specified
+^C
+tecnomen@debian12:~/k8s/service-demo-1$ cat ../deployment-demo-1/deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx:1.29
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/service-demo-1$ 
+tecnomen@debian12:~/k8s/service-demo-1$ kubectl get service
+NAME            TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        23h
+myapp-service   NodePort    10.98.55.253   <none>        80:30008/TCP   22m
+tecnomen@debian12:~/k8s/service-demo-1$ 
+```
