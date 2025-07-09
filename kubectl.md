@@ -790,3 +790,201 @@ NAME                                          DESIRED   CURRENT   READY   AGE
 replicaset.apps/myapp-replicaset-56db76d944   3         3         3       50s
 tecnomen@debian12:~/k8s/deployment-demo$ 
 ```
+
+### Describe deployment with `kubectl describe deployments`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl create -f deployment-definition.yml 
+deployment.apps/myapp-deployment created
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get pods
+NAME                                READY   STATUS              RESTARTS   AGE
+myapp-deployment-56db76d944-l8cfh   1/1     Running             0          5s
+myapp-deployment-56db76d944-qm5tm   0/1     ContainerCreating   0          5s
+myapp-deployment-56db76d944-tkhmk   0/1     ContainerCreating   0          5s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+myapp-deployment   3/3     3            3           12s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl describe deployments myapp-deployment
+Name:                   myapp-deployment
+Namespace:              default
+CreationTimestamp:      Wed, 09 Jul 2025 16:01:48 +0800
+Labels:                 app=myapp
+                        type=front-end
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               type=front-end
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=myapp
+           type=front-end
+  Containers:
+   nginx-container:
+    Image:         nginx
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   myapp-deployment-56db76d944 (3/3 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  21s   deployment-controller  Scaled up replica set myapp-deployment-56db76d944 from 0 to 3
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl describe deployment myapp-deployment
+Name:                   myapp-deployment
+Namespace:              default
+CreationTimestamp:      Wed, 09 Jul 2025 16:01:48 +0800
+Labels:                 app=myapp
+                        type=front-end
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               type=front-end
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=myapp
+           type=front-end
+  Containers:
+   nginx-container:
+    Image:         nginx
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   myapp-deployment-56db76d944 (3/3 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  52s   deployment-controller  Scaled up replica set myapp-deployment-56db76d944 from 0 to 3
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl describe deploy myapp-deployment
+Name:                   myapp-deployment
+Namespace:              default
+CreationTimestamp:      Wed, 09 Jul 2025 16:01:48 +0800
+Labels:                 app=myapp
+                        type=front-end
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               type=front-end
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=myapp
+           type=front-end
+  Containers:
+   nginx-container:
+    Image:         nginx
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   myapp-deployment-56db76d944 (3/3 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  59s   deployment-controller  Scaled up replica set myapp-deployment-56db76d944 from 0 to 3
+tecnomen@debian12:~/k8s/deployment-demo$
+```
+
+### Delete deployment with `kubectl delete deployment`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/myapp-deployment-56db76d944-l8cfh   1/1     Running   0          87s
+pod/myapp-deployment-56db76d944-qm5tm   1/1     Running   0          87s
+pod/myapp-deployment-56db76d944-tkhmk   1/1     Running   0          87s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   18h
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/myapp-deployment   3/3     3            3           87s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/myapp-deployment-56db76d944   3         3         3       87s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl delete deployment myapp-deployment
+deployment.apps "myapp-deployment" deleted
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   18h
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get all
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   18h
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployment
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+```
