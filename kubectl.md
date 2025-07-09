@@ -355,6 +355,28 @@ tecnomen@debian12:~/k8s/replicasets-demo-1$
 tecnomen@debian12:~/k8s/replicasets-demo-1$ 
 ```
 
+### To delete replication controller with `kubectl delete replicationcontroller`
+
+```
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicationcontroller
+NAME       DESIRED   CURRENT   READY   AGE
+myapp-rc   3         3         3       21m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl delete replicationcontroller myapp-rc
+replicationcontroller "myapp-rc" deleted
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicationcontroller
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+```
+
 ### To create replicaset using `kubectl create` with the replicaset definition file
 
 ```
