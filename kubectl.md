@@ -1254,6 +1254,8 @@ tecnomen@debian12:~/k8s/deployment-demo$
 
 > Note that in below, the pod are running and with the matching labels in the selector field.
 
+> Note that by right we should run the `minikube service myapp-service` inside the Debian vm, so that we won't see the locale error.
+
 ```
 tecnomen@debian12:~/k8s/service-demo-1$ cat service-definition.yml 
 apiVersion: v1
