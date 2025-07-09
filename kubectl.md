@@ -642,6 +642,25 @@ myapp-rc-k2l77   1/1     Running   0          20m
 myapp-rc-v9k2m   1/1     Running   0          20m
 myapp-rc-xljq8   1/1     Running   0          20m
 tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-jk89f   1/1     Running   0          5h11m
+myapp-replicaset-jqq2p   1/1     Running   0          5h41m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl delete rs myapp-replicaset
+replicaset.apps "myapp-replicaset" deleted
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get rs
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
 ```
 
 ### Using `kubectl explain` command
