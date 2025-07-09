@@ -1365,3 +1365,4 @@ kubernetes      ClusterIP   10.96.0.1      <none>        443/TCP        23h
 myapp-service   NodePort    10.98.55.253   <none>        80:30008/TCP   22m
 tecnomen@debian12:~/k8s/service-demo-1$ 
 ```
+![img](img/image1.png)
