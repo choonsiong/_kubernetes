@@ -530,3 +530,24 @@ myapp-replicaset-bbvhz   1/1     Running   0          8m49s
 tecnomen@debian12:~/k8s/replica-set-demo-1$ 
 tecnomen@debian12:~/k8s/replica-set-demo-1$ 
 ```
+
+### Delete replicaset with `kubectl delete replicaset`
+
+```
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   2         2         2       10m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl delete replicaset myapp-replicaset
+replicaset.apps "myapp-replicaset" deleted
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+myapp-rc-k2l77   1/1     Running   0          20m
+myapp-rc-v9k2m   1/1     Running   0          20m
+myapp-rc-xljq8   1/1     Running   0          20m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+```
