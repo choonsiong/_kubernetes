@@ -553,6 +553,76 @@ tecnomen@debian12:~/k8s/replica-set-demo-1$
 tecnomen@debian12:~/k8s/replica-set-demo-1$ 
 ```
 
+### Scale replicaset with `kubectl edit replicaset` or `kubectl scale replicaset`
+
+```
+tecnomen@debian12:~/k8s/replica-set-demo-1$ cat replicaset-definition.yml 
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 2
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-jqq2p   1/1     Running   0          29m
+myapp-replicaset-q2nth   1/1     Running   0          28m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl edit replicaset myapp-replicaset
+replicaset.apps/myapp-replicaset edited
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS              RESTARTS   AGE
+myapp-replicaset-jk89f   0/1     ContainerCreating   0          3s
+myapp-replicaset-jqq2p   1/1     Running             0          30m
+myapp-replicaset-q2nth   1/1     Running             0          29m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   3         3         3       30m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-jk89f   1/1     Running   0          4h53m
+myapp-replicaset-jqq2p   1/1     Running   0          5h23m
+myapp-replicaset-q2nth   1/1     Running   0          5h22m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl scale replicaset myapp-replicaset --replicas=2
+replicaset.apps/myapp-replicaset scaled
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-replicaset-jk89f   1/1     Running   0          4h53m
+myapp-replicaset-jqq2p   1/1     Running   0          5h23m
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+```
+
 ### Delete replicaset with `kubectl delete replicaset`
 
 ```
