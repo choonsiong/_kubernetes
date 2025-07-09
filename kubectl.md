@@ -714,3 +714,79 @@ FIELDS:
 
 tecnomen@debian12:~/k8s/replica-set-demo-1$ 
 ```
+
+### Create deployment using `kubectl create`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ cat deployment-definition.yml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get pods
+No resources found in default namespace.
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl create -f deployment-definition.yml 
+deployment.apps/myapp-replicaset created
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+myapp-replicaset   1/3     3            1           5s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get deployments
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+myapp-replicaset   3/3     3            3           9s
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get pods
+NAME                                READY   STATUS    RESTARTS   AGE
+myapp-replicaset-56db76d944-b52kq   1/1     Running   0          12s
+myapp-replicaset-56db76d944-mxsgx   1/1     Running   0          12s
+myapp-replicaset-56db76d944-zwl2p   1/1     Running   0          12s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get rs
+NAME                          DESIRED   CURRENT   READY   AGE
+myapp-replicaset-56db76d944   3         3         3       15s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ 
+```
+
+### Get all objects using `kubectl get all`
+
+```
+tecnomen@debian12:~/k8s/deployment-demo$ 
+tecnomen@debian12:~/k8s/deployment-demo$ kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/myapp-replicaset-56db76d944-b52kq   1/1     Running   0          50s
+pod/myapp-replicaset-56db76d944-mxsgx   1/1     Running   0          50s
+pod/myapp-replicaset-56db76d944-zwl2p   1/1     Running   0          50s
+
+NAME                 TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+service/kubernetes   ClusterIP   10.96.0.1    <none>        443/TCP   18h
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/myapp-replicaset   3/3     3            3           50s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/myapp-replicaset-56db76d944   3         3         3       50s
+tecnomen@debian12:~/k8s/deployment-demo$ 
+```
