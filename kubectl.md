@@ -404,3 +404,129 @@ tecnomen@debian12:~/k8s/replicat-set-demo-1$
 tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
 tecnomen@debian12:~/k8s/replicat-set-demo-1$ 
 ```
+
+### To scale replicaset up or down using `kubectl`
+
+```
+tecnomen@debian12:~/k8s$ cd replica-set-demo-1/
+tecnomen@debian12:~/k8s/replica-set-demo-1$ cat replicaset-definition.yml 
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ vi replicaset-definition.yml 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ cat replicaset-definition.yml 
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 6
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   3         3         3       6m16s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl create -f replicaset-definition.yml 
+Error from server (AlreadyExists): error when creating "replicaset-definition.yml": replicasets.apps "myapp-replicaset" already exists
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl scale --replicas=6 -f replicaset-definition.yml 
+replicaset.apps/myapp-replicaset scaled
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   6         6         3       6m39s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   6         6         5       6m43s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   6         6         6       8m12s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ cat replicaset-definition.yml 
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp
+    type: front-end
+spec:
+  template:
+    metadata:
+      name: myapp-pod
+      labels:
+        app: myapp
+        type: front-end
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 6
+  selector:
+    matchLabels:
+      type: front-end
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ vi replicaset-definition.yml 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl replace -f replicaset-definition.yml 
+replicaset.apps/myapp-replicaset replaced
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get replicaset
+NAME               DESIRED   CURRENT   READY   AGE
+myapp-replicaset   2         2         2       8m41s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+myapp-rc-k2l77           1/1     Running   0          18m
+myapp-rc-v9k2m           1/1     Running   0          18m
+myapp-rc-xljq8           1/1     Running   0          18m
+myapp-replicaset-2l88v   1/1     Running   0          8m49s
+myapp-replicaset-bbvhz   1/1     Running   0          8m49s
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+tecnomen@debian12:~/k8s/replica-set-demo-1$ 
+```
