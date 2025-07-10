@@ -1387,7 +1387,7 @@ myapp-pod   0/1     ContainerCreating   0          2s
 service/back-end created
 [mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] 
 [mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] 
-[mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] mkctl get services
+[mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] mkctl get service
 NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
 back-end     ClusterIP   10.101.180.142   <none>        80/TCP    4s
 kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   36m
