@@ -1366,3 +1366,58 @@ myapp-service   NodePort    10.98.55.253   <none>        80:30008/TCP   22m
 tecnomen@debian12:~/k8s/service-demo-1$ 
 ```
 ![img](img/image1.png)
+
+### Creating service using cluster IP
+
+```
+[mbp2022@~/Study/Kubernetes/yaml 13:49:07:174] mkctl get pods
+No resources found in default namespace.
+[mbp2022@~/Study/Kubernetes/yaml 13:49:17:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:17:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:18:174] mkctl create -f clusterip-pod-definition.yaml     
+pod/myapp-pod created
+[mbp2022@~/Study/Kubernetes/yaml 13:49:28:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:29:174] mkctl get pods                               
+NAME        READY   STATUS              RESTARTS   AGE
+myapp-pod   0/1     ContainerCreating   0          2s
+[mbp2022@~/Study/Kubernetes/yaml 13:49:30:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:30:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:31:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:31:174] mkctl create -f clusterip-service-definition.yaml 
+service/back-end created
+[mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:49:44:174] mkctl get services
+NAME         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)   AGE
+back-end     ClusterIP   10.101.180.142   <none>        80/TCP    4s
+kubernetes   ClusterIP   10.96.0.1        <none>        443/TCP   36m
+[mbp2022@~/Study/Kubernetes/yaml 13:49:48:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:50:02:174] cat clusterip-pod-definition.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-pod
+  labels:
+    app: myapp
+    type: back-end
+
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx%                                                                                                                                                                                                                                  [mbp2022@~/Study/Kubernetes/yaml 13:50:04:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:50:05:174] 
+[mbp2022@~/Study/Kubernetes/yaml 13:50:05:174] cat clusterip-service-definition.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: back-end
+
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 80
+      port: 80
+  selector:
+    app: myapp
+    type: back-end%                                                                                                                                                                                                                                  [mbp2022@~/Study/Kubernetes/yaml 13:50:09:174] 
+```
