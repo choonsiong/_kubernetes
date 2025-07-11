@@ -27,3 +27,6 @@
     - [Kubernetes](https://kubernetes.io/)
 - [containerd](https://containerd.io/)
     - [nerdctl](https://github.com/containerd/nerdctl)
+- [OSBoxes](https://www.osboxes.org/)
+- [Oracle VirtualBox](https://www.virtualbox.org/)
+- [Vagrant](https://developer.hashicorp.com/vagrant)
