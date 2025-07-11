@@ -15,6 +15,7 @@
 - [Kubernetes 文檔/概述](https://kubernetes.io/zh-cn/docs/concepts/overview/)
 - [Kubernetes Documentation/Concepts](https://kubernetes.io/docs/concepts/)
     - [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
+    - [Installing `kubeadm`](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
 ## Tools
