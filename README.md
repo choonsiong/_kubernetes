@@ -43,6 +43,19 @@
             - name: nginx-container
               image: nginx    
     ```          
+- CLI command tools
+    - ctr
+        - from containerd, work with containerd only
+        - mainly for debugging
+        - limited features
+    - nerdctl
+        - from containerd, work with containerd only
+        - docker like
+        - for general purposes
+    - crictl
+        - from k8s
+        - mainly for debugging
+        - compatible with all CRI (Container Runtime Interface) supported runtimes
 - Replication controller (old technology to setup replication) is running even if there's only one pod running.
     - Load balancing and scaling
     - Replaced by ReplicaSet

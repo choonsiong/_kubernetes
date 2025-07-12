@@ -1,6 +1,7 @@
 # Bookmarks
 
 - [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/)
+    - [cncf/curriculum](https://github.com/cncf/curriculum)
     - [Certified Kubernetes Administrator (CKA)](https://www.cncf.io/training/certification/cka/)
         - [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
 - [Kubernetes](https://kubernetes.io)
