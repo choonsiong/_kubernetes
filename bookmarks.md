@@ -2,6 +2,7 @@
 
 - [Cloud Native Computing Foundation (CNCF)](https://www.cncf.io/)
     - [Certified Kubernetes Administrator (CKA)](https://www.cncf.io/training/certification/cka/)
+        - [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
 - [Kubernetes](https://kubernetes.io)
     - [documentation](https://kubernetes.io/docs/home/)
     - [crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
