@@ -22,6 +22,10 @@
     - [Installing `kubeadm`](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
 - [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
+## Blog
+
+- [Kubernetes - Cluster Architecture](https://godleon.github.io/blog/Kubernetes/k8s-CoreConcept-Cluster-Architecture/)
+
 ## Tools
 
 - [KodeKloud/public-playgrounds](https://kodekloud.com/public-playgrounds)
