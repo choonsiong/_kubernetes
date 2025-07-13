@@ -6,6 +6,7 @@
         - [Important Instructions: CKA and CKAD](https://docs.linuxfoundation.org/tc-docs/certification/tips-cka-and-ckad)
 - [Kubernetes](https://kubernetes.io)
     - [documentation](https://kubernetes.io/docs/home/)
+        - [Kubernetes Components](https://kubernetes.io/docs/concepts/overview/components/)
     - [crictl](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
 - [Minikube](https://minikube.sigs.k8s.io/docs/) - Single node k8s cluster (with all components inside)
     - [documentation](https://minikube.sigs.k8s.io/docs/)
