@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-api-server
+  labels:
+    app: simple-api-server
+spec:
+  containers:
+    - name: simple-api-server
+      image: choonsiong/simple-api-server
+      ports:
+        - containerPort: 8080
