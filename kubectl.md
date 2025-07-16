@@ -1,5 +1,27 @@
 # `kubectl`
 
+### To check cluster info
+
+```
+[mbp2022@~ 21:18:09:168] 
+[mbp2022@~ 21:18:09:168] kubectl cluster-info
+Kubernetes control plane is running at https://127.0.0.1:6443
+CoreDNS is running at https://127.0.0.1:6443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+[mbp2022@~ 21:19:20:168] 
+```
+
+### To get nodes info
+
+```
+[mbp2022@~ 21:25:02:168] 
+[mbp2022@~ 21:25:02:168] kubectl get nodes      
+NAME             STATUS   ROLES           AGE     VERSION
+docker-desktop   Ready    control-plane   7m32s   v1.32.2
+[mbp2022@~ 21:25:05:168] 
+```
+
 ### To find number of pods available in `default` namespace using `kubectl get pods`
 
 ```
