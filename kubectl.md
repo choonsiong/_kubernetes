@@ -22,6 +22,17 @@ docker-desktop   Ready    control-plane   7m32s   v1.32.2
 [mbp2022@~ 21:25:05:168] 
 ```
 
+### To get kubectl version
+
+```
+[mbp2022@~ 21:25:39:168] 
+[mbp2022@~ 21:25:39:168] kubectl version
+Client Version: v1.32.2
+Kustomize Version: v5.5.0
+Server Version: v1.32.2
+[mbp2022@~ 21:25:43:168] 
+```
+
 ### To find number of pods available in `default` namespace using `kubectl get pods`
 
 ```
