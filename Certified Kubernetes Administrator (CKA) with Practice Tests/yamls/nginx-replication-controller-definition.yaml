@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc
+  labels:
+    app: my-web-app-rc
+    type: frontend-rc
+spec:
+  template:
+    # Pod definition below
+    metadata:
+      name: nginx-pod
+      labels:
+        app: my-web-app
+        type: frontend
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 2

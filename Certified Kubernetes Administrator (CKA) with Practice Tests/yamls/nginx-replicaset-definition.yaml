@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  labels:
+    app: my-web-app-rs
+    type: frontend-rs
+spec:
+  template:
+    # Pod definition below
+    metadata:
+      name: nginx-pod
+      labels:
+        app: my-web-app
+        type: frontend
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+  replicas: 4
+  selector:
+    # Major difference compared to replication controller
+    matchLabels:
+      type: frontend # must match the labels in the pod definition
