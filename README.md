@@ -61,4 +61,4 @@
     - Replaced by ReplicaSet
 - Networking
     - Each pod gets its own IP (whereas in Docker, each container has its own IP)
-        - Note that a pod can hosts multiple containers0
+        - Note that a pod can hosts multiple containers
