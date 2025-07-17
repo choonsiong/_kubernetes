@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: simple-api-server
   labels:
-    app: simple-api-server
+    app: simple-api-server-pod
 spec:
   containers:
     - name: simple-api-server

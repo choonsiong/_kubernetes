@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-api-server
+  labels:
+    app: simple-api-server-pod
+    type: backend
+spec:
+  containers:
+    - name: simple-api-server
+      image: choonsiong/simple-api-server
+      ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-api-server2
+  labels:
+    app: simple-api-server2-pod
+    type: frontend
+spec:
+  containers:
+    - name: simple-api-server2
+      image: choonsiong/simple-api-server
+      ports:
+        - containerPort: 8080
+
+---
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-api-server3
+  labels:
+    app: simple-api-server3-pod
+    type: frontend
+spec:
+  containers:
+    - name: simple-api-server3
+      image: choonsiong/simple-api-server
+      ports:
+        - containerPort: 8080
