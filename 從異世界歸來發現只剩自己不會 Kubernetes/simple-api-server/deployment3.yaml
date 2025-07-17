@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-api-server-deployment
+  labels:
+    type: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: frontend
+  template:
+    metadata:
+      labels:
+        type: frontend
+    spec:
+      containers:
+        - name: simple-api-server
+          image: choonsiong/simple-api-server
+          ports:
+            - containerPort: 8080
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-api-server2-deployment
+  labels:
+    type: backend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      type: backend
+  template:
+    metadata:
+      labels:
+        type: backend
+    spec:
+      containers:
+        - name: simple-api-server2
+          image: choonsiong/simple-api-server:v2
+          ports:
+            - containerPort: 8080
