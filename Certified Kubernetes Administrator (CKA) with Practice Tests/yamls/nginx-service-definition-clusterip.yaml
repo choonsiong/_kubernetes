@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  name: nginx-clusterip-service
 spec:
   type: ClusterIP # it is default if we didn't specify
   ports:
