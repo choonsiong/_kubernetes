@@ -26,6 +26,8 @@
 ## Blog
 
 - [Kubernetes - Cluster Architecture](https://godleon.github.io/blog/Kubernetes/k8s-CoreConcept-Cluster-Architecture/)
+- [Kubernetes Service 概念詳解](https://tachingchen.com/tw/blog/kubernetes-service/)
+    - [Kubernetes Service 深度剖析 - 標籤對於 Service 的影響](https://tachingchen.com/tw/blog/kubernetes-service-in-detail-2/)
 - [Local Kubernetes Mac Minikube vs Docker Desktop](https://codefresh.io/blog/local-kubernetes-mac-minikube-vs-docker-desktop/)
 - [Docker Desktop for Mac/Windows 开启 Kubernetes](https://github.com/denverdino/k8s-for-docker-desktop)
 
