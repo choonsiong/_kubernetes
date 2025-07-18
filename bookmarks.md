@@ -18,9 +18,11 @@
 ## K8S Documentation
 
 - [Kubernetes 文檔/概述](https://kubernetes.io/zh-cn/docs/concepts/overview/)
+    - [服務 (Service)](https://kubernetes.io/zh-cn/docs/concepts/services-networking/service/#protocol-support)
 - [Kubernetes Documentation/Concepts](https://kubernetes.io/docs/concepts/)
     - [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
     - [Installing `kubeadm`](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
+    - [Deploy and Access the Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
 - [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
 ## Blog
