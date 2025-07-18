@@ -43,5 +43,6 @@
 - [containerd](https://containerd.io/)
     - [nerdctl](https://github.com/containerd/nerdctl)
 - [OSBoxes](https://www.osboxes.org/)
+- [OpenSearch](https://opensearch.org/)
 - [Oracle VirtualBox](https://www.virtualbox.org/)
 - [Vagrant](https://developer.hashicorp.com/vagrant)
