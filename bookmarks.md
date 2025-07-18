@@ -23,6 +23,8 @@
     - [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
     - [Installing `kubeadm`](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)
     - [Deploy and Access the Kubernetes Dashboard](https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/)
+- [Reference](https://kubernetes.io/docs/reference/)
+    - [kubectl Usage Conventions](https://kubernetes.io/docs/reference/kubectl/conventions/)
 - [Container Runtime Interface (CRI)](https://kubernetes.io/docs/concepts/architecture/cri/)
 
 ## Blog
